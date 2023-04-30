@@ -1,0 +1,6 @@
+{
+ "watch": ["src", "dist"],
+ "ext": "ts",
+ "ignore": ["src/**/*.spec.ts"],
+ "exec": "npm restart"
+}
