@@ -7,8 +7,8 @@ import mongoose from "mongoose";
 
 const movieSchema = new mongoose.Schema({
 	id: { type: Number, required: true },
-	name: { type: String, required: true },
-	genre: { type: String, required: true },
+	name: { type: String, required: true, lowercase:	true, trim: true },
+	genre: { type: String, required: true, lowercase: true, trim: true },
 	length: { type: Number, required: true, get: (v: number) => Math.round(v), set: (v: number) => Math.round(v) },
 	date: {	type: Date, required: true, default: Date.now },
 });
