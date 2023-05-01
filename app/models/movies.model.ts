@@ -20,4 +20,14 @@ export const validateMovie = (movie: Movie) : Joi.ValidationResult<Movie> => {
 	return schema.validate(movie);
 };
 
+export const validateUpdateMovie = (movie: Movie) : Joi.ValidationResult<Movie> => {
+	const schema = Joi.object({
+		name: Joi.string().min(1).max(50).optional(),
+		genre: Joi.string().min(1).max(50).optional(),
+		length: Joi.number().integer().greater(0).optional().optional(),
+	});
+
+	return schema.validate(movie);
+};
+
 export const Movies = mongoose.model("movie", movieSchema);

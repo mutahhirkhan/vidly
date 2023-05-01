@@ -1,6 +1,6 @@
 import express from "express";
 import Joi from "joi";
-import { Movies, validateMovie } from "../models/movies.model";
+import { Movies, validateMovie, validateUpdateMovie } from "../models/movies.model";
 import { HTTP_STATUS_CODE } from "../utilities/constant";
 
 const router = express.Router();
@@ -20,7 +20,6 @@ router.get("/:id", async (req, res) => {
 		if (error) return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.details[0].message });
 
 		const movieByGenreId = await Movies.findOne({ id });
-		// const movieByGenreId = movies.find((movie) => movie.id === parseInt(id));
 
 		if (!movieByGenreId) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Movie not found", data: [] });
 
@@ -62,7 +61,7 @@ router.put("/:id", async (req, res) => {
 		const { id } = req.params;
 		const reqBody = req.body;
 
-		const { error: payloadError } = validateMovie(req.body);
+		const { error: payloadError } = validateUpdateMovie(req.body);
 
 		const paramSchema = Joi.number().integer().greater(0).required();
 		const { error: paramError } = paramSchema.validate(id);
