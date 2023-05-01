@@ -33,12 +33,6 @@ router.get("/:id", async (req, res) => {
 //add new movie
 router.post("/", async (req, res) => {
 	try {
-		// const schema = Joi.object({
-		// 		name: Joi.string().required(),
-		// 		genre: Joi.string().required(),
-		// 		length: Joi.number().integer().greater(0).optional(),
-		// 	}),
-		// 	{ error } = schema.validate(req.body);
 
 		const { error } = validateMovie(req.body);
 
@@ -68,13 +62,6 @@ router.put("/:id", async (req, res) => {
 		const { id } = req.params;
 		const reqBody = req.body;
 
-		// const payloadSchema = Joi.object({
-		// 	name: Joi.string().optional(),
-		// 	genre: Joi.string().optional(),
-		// 	length: Joi.number().integer().greater(0).optional(),
-		// });
-
-		// const { error: payloadError } = payloadSchema.validate(reqBody);
 		const { error: payloadError } = validateMovie(req.body);
 
 		const paramSchema = Joi.number().integer().greater(0).required();
