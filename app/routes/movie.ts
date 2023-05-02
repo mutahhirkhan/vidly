@@ -68,8 +68,9 @@ router.put("/:id", async (req, res) => {
 
 		if (paramError) return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: paramError?.details[0].message });
 		else if (payloadError) return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: payloadError?.details[0].message });
-
-		const movie = await Movies.findOneAndUpdate({ id }, reqBody);
+		
+		//new: true => return the updated object
+		const movie = await Movies.findOneAndUpdate({ id }, reqBody, { new: true });
 
 		if (!movie) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Movie not found" });
 

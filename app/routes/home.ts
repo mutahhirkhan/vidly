@@ -2,6 +2,12 @@
 import express from 'express';
 const router = express.Router();
 router.get('/', (req, res) => {
-  res.send('Welcome to VIDLY');
+  try {
+    throw new Error('Something failed');
+    res.send('Welcome to VIDLY');
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
 })
 export default router;
