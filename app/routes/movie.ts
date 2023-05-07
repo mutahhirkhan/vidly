@@ -24,7 +24,7 @@ router.get("/:id", async (req, res) => {
 		if (!movieByGenreId) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Movie not found", data: [] });
 
 		res.status(HTTP_STATUS_CODE["Found"]).send(movieByGenreId);
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.message, data: [] });
 	}
 });
@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
 		const savedMovie = await movie.save();
 
 		res.status(HTTP_STATUS_CODE["Created"]).send({ data: savedMovie, message: "Movie added" });
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.message });
 	}
 });
@@ -75,7 +75,7 @@ router.put("/:id", async (req, res) => {
 		if (!movie) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Movie not found" });
 
 		res.status(HTTP_STATUS_CODE["No Content"]).send({ data: movie, message: "Movie updated" });
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.message });
 	}
 });
@@ -95,7 +95,7 @@ router.delete("/:id", async (req, res) => {
 			return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Movie not found", data: [] });
 
 		res.status(HTTP_STATUS_CODE["No Content"]).send({ data: deletedMovie, message: "Movie deleted" });
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.message });
 	}
 });
@@ -109,7 +109,7 @@ router.delete("/", async (_, res) => {
 			return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Movies not found", data: [] });
 
 		res.status(HTTP_STATUS_CODE["No Content"]).send({ data: deletedMovies, message: "Movies deleted" });
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.message });
 	}
 });

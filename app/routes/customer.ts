@@ -25,7 +25,7 @@ router.get("/:id", async (req, res) => {
 		if (!customerByGenreId) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Customer not found", data: [] });
 
 		res.status(HTTP_STATUS_CODE["Found"]).send(customerByGenreId);
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Gateway"]).send({ message: error.message, data: [] });
 	}
 });
@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
 		const savedCustomer = await customer.save();
 
 		res.status(HTTP_STATUS_CODE["Created"]).send({ data: savedCustomer, message: "Customer added" });
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Gateway"]).send({ message: error.message });
 	}
 });
@@ -74,7 +74,7 @@ router.put("/:id", async (req, res) => {
 		if (!customer) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Customer not found", data: [] });
 
 		res.status(HTTP_STATUS_CODE["No Content"]).send({ data: customer, message: "Customer updated" });
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Gateway"]).send({ message: error.message, data: [] });
 	}
 });
@@ -92,7 +92,7 @@ router.delete("/:id", async (req, res) => {
 		if (!customer) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Customer not found", data: [] });
 
 		res.status(HTTP_STATUS_CODE["No Content"]).send({ data: customer, message: "Customer deleted" });
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Gateway"]).send({ message: error.message, data: [] });
 	}
 });
@@ -104,7 +104,7 @@ router.delete("/", async (_, res) => {
 		if (!customers) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Customers not found", data: [] });
 
 		res.status(HTTP_STATUS_CODE["No Content"]).send({ data: customers, message: "Customers deleted" });
-	} catch (error) {
+	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.message, data: [] });
 	}
 });
