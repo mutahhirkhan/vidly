@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import express from "express";
 import movies from "./routes/movie";
 import home from "./routes/home";
+import genres from "./routes/genre"
 import customers from "./routes/customer";
 import { connectionString, PORT } from "./utilities/constant";
 
@@ -17,6 +18,7 @@ mongoose
 
 app.use(express.json());
 app.use("/", home);
+app.use("/api/genres", genres);
 app.use("/api/movies", movies);
 app.use("/api/customers", customers);
 

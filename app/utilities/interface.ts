@@ -9,3 +9,8 @@ export interface Customer  {
  phone: String
  isGold: Boolean
 }
+
+export interface Genre {
+ name: String
+ 
+}

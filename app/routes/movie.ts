@@ -2,11 +2,13 @@ import express from "express";
 import Joi from "joi";
 import { Movies, validateMovie, validateUpdateMovie } from "../models/movies.model";
 import { HTTP_STATUS_CODE } from "../utilities/constant";
+import { Genres } from "../models/genre.model";
+import { makeupGenre } from './genre';
 
 const router = express.Router();
 
 router.get("/", async (_, res) => {
-	const movies = await Movies.find().sort("name");
+	const movies = await Movies.find().sort("title");
 	res.status(HTTP_STATUS_CODE["OK"]).send({ data: movies, count: movies.length, message: "Success" });
 });
 
@@ -37,14 +39,25 @@ router.post("/", async (req, res) => {
 
 		if (error) return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.details[0].message });
 
-		const { name, genre, length } = req.body;
+		const { title, genre, length, dailyRentalRate, numberInStock } = req.body;
+		
+		const genreById = await Genres.findById(genre).select("name id").exec();		
+		if (!genreById) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Genre not found", data: [] });
+
+
 		const lastItem = await Movies.findOne().sort({ date: -1 }).limit(1).select("id").exec();
 
 		const movie = new Movies({
-			name,
-			genre,
+			title,
+			genre : {
+				_id: genreById._id,
+				name: genreById.name,
+				id: genreById.id,
+		},
 			length,
 			id: lastItem ? lastItem.id + 1 : 1,
+			dailyRentalRate,
+			numberInStock,
 		});
 
 		const savedMovie = await movie.save();
