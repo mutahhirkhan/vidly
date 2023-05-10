@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { Movie } from "../utilities/interface";
 import { genreSchema } from "./genre.model";
 // import JoiObjectId from "joi-oid";
-import { Types } from 'mongoose';
+import { Types } from "mongoose";
 
 const movieSchema = new mongoose.Schema({
 	id: { type: Number, required: true },
@@ -37,9 +37,9 @@ export const validateUpdateMovie = (movie: Movie): Joi.ValidationResult<Movie> =
 		// genre: JoiObjectId.objectId(),
 		genre: Joi.string(),
 
-		dailyRentalRate: Joi.number().integer().greater(0).required(),
-		numberInStock: Joi.number().integer().greater(0).required(),
-		
+		dailyRentalRate: Joi.number().integer().greater(0).optional(),
+		numberInStock: Joi.number().integer().greater(0).optional(),
+
 		// genre: Joi.string().min(1).max(50).optional(),
 		length: Joi.number().integer().greater(0).optional().optional(),
 	});

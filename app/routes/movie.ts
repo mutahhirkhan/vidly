@@ -72,15 +72,32 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
-		const reqBody = req.body;
+		let reqBody = req.body;
 
-		const { error: payloadError } = validateUpdateMovie(req.body);
+		const { error: payloadError } = validateUpdateMovie(reqBody);
 
 		const paramSchema = Joi.number().integer().greater(0).required();
 		const { error: paramError } = paramSchema.validate(id);
 
 		if (paramError) return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: paramError?.details[0].message });
 		else if (payloadError) return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: payloadError?.details[0].message });
+
+		//get genre by id
+		if(reqBody.genre) {
+			console.log('updating genre');
+			const genreById = await Genres.findById(reqBody.genre).select("name id").exec();		
+			if (!genreById) return res.status(HTTP_STATUS_CODE["Not Found"]).send({ message: "Genre not found", data: [] });
+			
+			//add genre to reqBody object
+			reqBody = {
+				...reqBody,
+				genre : {
+					_id: genreById._id,
+					name: genreById.name,
+					id: genreById.id,
+				}
+			}
+		}
 		
 		//new: true => return the updated object
 		const movie = await Movies.findOneAndUpdate({ id }, reqBody, { new: true });
