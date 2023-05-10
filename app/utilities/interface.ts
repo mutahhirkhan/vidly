@@ -14,3 +14,8 @@ export interface Genre {
  name: String
  
 }
+
+export interface Rental {
+ movieId: Number
+ customerId: Number
+}

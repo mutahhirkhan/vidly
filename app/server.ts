@@ -4,6 +4,7 @@ import movies from "./routes/movie";
 import home from "./routes/home";
 import genres from "./routes/genre"
 import customers from "./routes/customer";
+import rentals from "./routes/rental";
 import { connectionString, PORT } from "./utilities/constant";
 
 const port = process.env.PORT || PORT;
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/", home);
 app.use("/api/genres", genres);
 app.use("/api/movies", movies);
+app.use("/api/rentals", rentals);
 app.use("/api/customers", customers);
 
 

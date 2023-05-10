@@ -10,8 +10,20 @@ const movieSchema = new mongoose.Schema({
 
 	title: { type: String, required: true, lowercase: true, trim: true, minLength: 1, maxLength: 50 },
 	genre: { type: genreSchema, required: true },
-	dailyRentalRate: { type: Number, required: true, get: (v: number) => Math.round(v), set: (v: number) => Math.round(v) },
-	numberInStock: { type: Number, required: true, get: (v: number) => Math.round(v), set: (v: number) => Math.round(v) },
+	
+	dailyRentalRate: { type: Number, required: true, 	
+		validate : {
+			validator : Number.isInteger,
+			message   : '{VALUE} is not an integer value' 
+		} 
+	},
+	
+	numberInStock: { type: Number, required: true, 
+		validate : {
+			validator : Number.isInteger,
+			message   : '{VALUE} is not an integer value' 
+		}
+	},
 
 	length: { type: Number, required: true, get: (v: number) => Math.round(v), set: (v: number) => Math.round(v) },
 	date: { type: Date, required: true, default: Date.now },
