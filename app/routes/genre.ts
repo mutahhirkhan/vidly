@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
 
 		const { name } = req.body;
 
-		const {unsavedGenre, ...rest } = await makeupGenre(name);
+		const {unsavedGenre:genre, ...rest } = await makeupGenre(name);
 		// const lastItem = await Genres.findOne().sort({ date: -1 }).limit(1).select("id").exec();
 
 		// console.log("last item", lastItem);
@@ -65,9 +65,10 @@ router.post("/", async (req, res) => {
 		// 	id: lastItem ? lastItem.id + 1 : 1,
 		// });
 
-		const savedGenre = await unsavedGenre.save();
+		//because object has been preapered by mongoose
+		await genre.save();
 
-		res.status(HTTP_STATUS_CODE["Created"]).send({ data: savedGenre, message: "Genre added" });
+		res.status(HTTP_STATUS_CODE["Created"]).send({ data: genre, message: "Genre added" });
 	} catch (error: any) {
 		return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.message });
 	}

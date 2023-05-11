@@ -47,9 +47,9 @@ router.post("/", async (req, res) => {
 			id: lastItem ? lastItem.id + 1 : 1,
 		});
 
-		const savedCustomer = await customer.save();
+		await customer.save();
 
-		res.status(HTTP_STATUS_CODE["Created"]).send({ data: savedCustomer, message: "Customer added" });
+		res.status(HTTP_STATUS_CODE["Created"]).send({ data: customer, message: "Customer added" });
 	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Gateway"]).send({ message: error.message });
 	}

@@ -60,9 +60,10 @@ router.post("/", async (req, res) => {
 			numberInStock,
 		});
 
-		const savedMovie = await movie.save();
+		//becuase object has been prepared by mongoose earlier
+		await movie.save();
 
-		res.status(HTTP_STATUS_CODE["Created"]).send({ data: savedMovie, message: "Movie added" });
+		res.status(HTTP_STATUS_CODE["Created"]).send({ data: movie, message: "Movie added" });
 	} catch (error:any) {
 		return res.status(HTTP_STATUS_CODE["Bad Request"]).send({ message: error.message });
 	}
