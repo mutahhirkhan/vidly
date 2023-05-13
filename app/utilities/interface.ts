@@ -19,3 +19,9 @@ export interface Rental {
  movieId: Number
  customerId: Number
 }
+
+export interface User {
+ name: String
+ email: String
+ password: String
+}
