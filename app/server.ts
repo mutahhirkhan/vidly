@@ -5,6 +5,7 @@ import home from "./routes/home";
 import genres from "./routes/genre"
 import customers from "./routes/customer";
 import rentals from "./routes/rental";
+import users from "./routes/user";
 import { connectionString, PORT } from "./utilities/constant";
 
 const port = process.env.PORT || PORT;
@@ -19,6 +20,7 @@ mongoose
 
 app.use(express.json());
 app.use("/", home);
+app.use("/api/users", users);
 app.use("/api/genres", genres);
 app.use("/api/movies", movies);
 app.use("/api/rentals", rentals);
